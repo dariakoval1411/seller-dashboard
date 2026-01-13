@@ -1,120 +1,67 @@
-## 1. Cel projektu
+## 1. Wprowadzenie
 
-Celem projektu jest opracowanie koncepcji oraz prototypu **Panelu Sprzedawcy** – modułu portalu zakupowego umożliwiającego sprzedawcy szybki przegląd kluczowych informacji dotyczących sprzedaży, jakości obsługi oraz opinii kupujących.  
-Panel dostępny jest wyłącznie po zalogowaniu i musi wspierać:
-- wielokontowość,
-- dwujęzyczność (PL/EN),
-- tryby kolorystyczne: light / dark.
-  
----
-## 2. Zakres funkcjonalny
-### 2.1. Dostęp i personalizacja
-- Uproszczone logowanie.
-- Wielokontowość – możliwość przeglądania danych dla różnych powiązanych kont sprzedawcy.
-- Zmiana języka interfejsu (PL/EN).
-- Zmiana trybu kolorystycznego (light/dark).
-### 2.2. Dashboard sprzedawcy – widgety
-Panel składa się z sześciu widgetów:
-#### Zamówienia
-- Nieopłacone, niewysłane, zwroty.
-- Przekierowanie do strony „Zamówienia”.
-- Obsługa pustego stanu.
-#### Jakość Sprzedaży
-- Ocena jakości + maksymalny możliwy wynik.
-- Kategoria jakości (1 z 5).
-- 3 najsłabsze aspekty.
-- Przejście na stronę „Jakość sprzedaży”.
-- Pusty stan.
-#### Opinie Kupujących
-- Ostatnie 5 opinii.
-- Filtry: wszystkie / pozytywne / negatywne.
-- Przejście do strony opinii.
-- Pusty stan.
-#### Ranking Ofert
-- 5 ofert według wybranego kryterium.
-- Kryteria:
-  - najczęściej kupowane,
-  - najrzadziej kupowane.
-- Dane: nazwa, miniatura, sprzedaż, obrót / wyświetlenia.
-- Pusty stan.
-#### Wykres sprzedaży
-- Miary: obrót / liczba sprzedanych sztuk.
-- Zakresy: dziś / obecny tydzień / poprzedni tydzień.
-- Typy wykresu: słupkowy / liniowy.
-- Dodatkowe funkcje:
-  - seria poprzedniego okresu,
-  - wyróżnienie punktów z niepełnego okresu.
-#### Porady sprzedażowe
-- Zestaw wskazówek dotyczących poprawy sprzedaży.
+Analiza została wykonana zgodnie z metodyką **MoSCoW** w celu określenia priorytetów funkcjonalnych oraz zakresu prac przewidzianych na pierwszy kamień milowy projektu **Panelu Sprzedawcy**.  
+Uwzględniono zarówno elementy implementacyjne (React), jak i dokumentacyjne (UML, koncepcja, Figma).
 
 ---
 
-### 2.3. Podstrony
+## 2. Klasyfikacja MoSCoW
 
+### 2.1. MUST HAVE
 
-Panel zawiera uproszczone wersje stron:
+Funkcje absolutnie wymagane, aby projekt został uznany za kompletny na pierwszy kamień milowy.
 
-- Zamówienia
-- Opinie kupujących
-- Jakość sprzedaży
-
-Strony mogą prezentować wyłącznie nagłówki i podstawowe informacje.
-
----
-
-## 3. User Stories
-### Dostęp i personalizacja
-- **US-01**: Logowanie do panelu.
-- **US-02**: Wybór konta po zalogowaniu.
-- **US-03**: Przełączanie kont bez ponownego logowania.
-- **US-04**: Zmiana języka interfejsu (PL/EN).
-- **US-05**: Zmiana trybu kolorystycznego (light/dark).
-
----
-
-### Widget „Zamówienia”
-
-- **US-06**: Podgląd liczby zamówień w trzech kategoriach.
-- **US-07**: Przejście do strony „Zamówienia”.
-- **US-08**: Komunikat przy braku zamówień.
+| ID   | Opis | Szacowany czas [h] | Ryzyka / Uwagi |
+|------|------|--------------------|----------------|
+| M-01 | Uproszczone logowanie użytkownika | 1–2 | Logowanie bez backendu; mock danych |
+| M-02 | Przełączanie i wybór kont sprzedawcy (wielokontowość – podstawowa wersja) | 1–2 | Bez realnych danych; prezentacja statyczna |
+| M-03 | Statyczny widok dashboardu z 6 widgetami | 2–3 | Spójność layoutu z Figmą |
+| M-04 | Podstawowe treści w widgetach (nagłówki, struktura, placeholdery) | 2–3 | Dane mock lub puste stany |
+| M-05 | Podstawowe podstrony: Zamówienia, Opinie, Jakość | 2–3 | Tylko nagłówki + wybrana kategoria |
+| M-06 | Dwujęzyczność (PL/EN) – przełącznik i podstawowe tłumaczenia | 3–4 | Rozbieżności językowe w komponentach |
+| M-07 | Tryb light/dark – przełącznik oraz podstawowe style | 3–4 | Ujednolicenie kolorów z Figmy |
+| M-08 | Pełen zestaw wymaganych diagramów UML | 2–3 | Zgodność z UCD i Figmą |
+| M-09 | Abstrakcyjny model UI (2 diagramy) | 1–2 | Odwzorowanie layoutu dashboardu |
+| M-10 | Projekt w Figma: dashboard + mini design system + 1–2 podstrony | 4–6 | Musi być zgodny z implementacją |
+| M-11 | UML architektury implementacji w React | 1–2 | Uzgodnić strukturę komponentów |
+| M-12 | Szkielet aplikacji w React (routing, layout, widgety statyczne, język, motyw) | 4–6 | Kluczowy element milestone’u |
 
 ---
 
-### Widget „Jakość Sprzedaży”
+### 2.2. SHOULD HAVE
 
-- **US-09**: Wyświetlenie oceny i kategorii jakości.
-- **US-10**: Wyświetlenie 3 najsłabszych aspektów.
-- **US-11**: Przejście do strony jakości sprzedaży.
-- **US-12**: Pusty stan, jeśli brak danych.
+Funkcje istotne, ale niewymagane do minimalnego działania prototypu.
 
----
-
-### Widget „Opinie Kupujących”
-
-- **US-13**: Wyświetlenie 5 ostatnich opinii.
-- **US-14**: Filtrowanie opinii.
-- **US-15**: Przejście do pełnej strony opinii.
-- **US-16**: Komunikat przy braku opinii.
+| ID   | Opis | Szacowany czas [h] | Ryzyka / Uwagi |
+|------|------|--------------------|----------------|
+| S-01 | Filtrowanie opinii (wszystkie / pozytywne / negatywne) | 2–3 | Działanie na mock danych |
+| S-02 | Przełączanie miary na wykresie (obrót / liczba sztuk) | 2–3 | Wymaga dwóch zestawów danych mock |
+| S-03 | Zakres czasu na wykresie (dziś / obecny tydzień / poprzedni tydzień) | 2–3 | Niejasność: „poprzedni tydzień / miesiące” |
+| S-04 | 3 najsłabsze aspekty jakości sprzedaży | 2–3 | Dane statyczne, bez logiki wyliczeń |
+| S-05 | Wyróżnienie punktów z niepełnego okresu na wykresie | 1–2 | Zmiana stylu wystarczy |
 
 ---
 
-### Widget „Ranking Ofert”
-- **US-17**: Podgląd 5 najczęściej kupowanych ofert.
-- **US-18**: Przełączenie na „najrzadziej kupowane”.
-- **US-19**: Komunikat przy braku ofert.
+### 2.3. COULD HAVE
+
+Dodatki poprawiające prezentację i UX — realizowane tylko, jeśli wystarczy czasu.
+
+| ID   | Opis | Szacowany czas [h] | Ryzyka / Uwagi |
+|------|------|--------------------|----------------|
+| C-01 | Dummy data zbliżone do realistycznych | 2–3 | Zwiększa wiarygodność prototypu |
+| C-02 | Animacje podstawowe (hover, transition, motyw) | 2–3 | Wpływa na UX, ale opcjonalne |
+| C-03 | Responsywność układu (widok mobilny) | 3–4 | Wydłuża pracę nad stylami |
 
 ---
 
-### Widget „Wykres Sprzedaży”
+### 2.4. WON’T HAVE (na ten kamień milowy)
 
-- **US-20**: Wybór miary wykresu (obrót / sztuki).
-- **US-21**: Wybór zakresu czasu.
-- **US-22**: Wybór typu wykresu (słupkowy / liniowy).
-- **US-23**: Włączenie serii z poprzedniego okresu.
-- **US-24**: Wyróżnienie punktów z niepełnego okresu.
+Elementy wykraczające poza zakres pierwszego milestone’u.
 
----
-
-### Widget „Porady Sprzedażowe”
-
-- **US-25**: Wyświetlenie porad sprzedażowych.
+| ID   | Opis | Powód wykluczenia |
+|------|------|-------------------|
+| W-01 | Integracja z backendem / API | Brak backendu; za duży zakres |
+| W-02 | Pełna logika wyliczenia jakości sprzedaży | Zbyt skomplikowane na prototyp |
+| W-03 | Zaawansowane sortowanie, filtrowanie, paginacja | Nie jest wymagane |
+| W-04 | Pełna obsługa sesji, bezpieczeństwa i autoryzacji | Poza zakresem prototypu |
+| W-05 | Zaawansowane wykresy z wieloma seriami dynamicznymi | Wersja mock wystarczy |
