@@ -2,11 +2,9 @@ import { useMemo, useState } from "react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import { WidgetCard } from "@/shared/ui/organisms/WidgetCard/WidgetCard";
 import { useLanguage } from "@/features/i18n/model/LanguageContext";
+import { RangeSelect, type Range } from "@/shared/ui/molecules/RangeSelect/RangeSelect";
+import { MetricSwitch, type Metric } from "@/shared/ui/molecules/MetricSwitch/MetricSwitch";
 import { salesMock } from "../../../../mock/sales";
-
-
-type Metric = "turnover" | "quantity";
-type Range = "7d" | "30d" | "90d";
 
 function sliceByRange(range: Range) {
   const n = range === "7d" ? 7 : range === "30d" ? 30 : 90;
@@ -27,42 +25,8 @@ export function SalesChartWidget() {
 
   const headerRight = (
     <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
-      <button
-        className={metric === "turnover" ? "btn-primary" : "btn-outline"}
-        onClick={() => setMetric("turnover")}
-        type="button"
-      >
-        {t("widgets.sales.metric.turnover")}
-      </button>
-      <button
-        className={metric === "quantity" ? "btn-primary" : "btn-outline"}
-        onClick={() => setMetric("quantity")}
-        type="button"
-      >
-        {t("widgets.sales.metric.quantity")}
-      </button>
-
-      <button
-        className={range === "7d" ? "btn-primary" : "btn-outline"}
-        onClick={() => setRange("7d")}
-        type="button"
-      >
-        {t("widgets.sales.range.7d")}
-      </button>
-      <button
-        className={range === "30d" ? "btn-primary" : "btn-outline"}
-        onClick={() => setRange("30d")}
-        type="button"
-      >
-        {t("widgets.sales.range.30d")}
-      </button>
-      <button
-        className={range === "90d" ? "btn-primary" : "btn-outline"}
-        onClick={() => setRange("90d")}
-        type="button"
-      >
-        {t("widgets.sales.range.90d")}
-      </button>
+      <MetricSwitch value={metric} onChange={setMetric} />
+      <RangeSelect value={range} onChange={setRange} />
     </div>
   );
 

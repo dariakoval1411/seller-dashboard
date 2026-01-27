@@ -1,28 +1,32 @@
 import { Button } from "@/shared/ui/atoms";
+import { useLanguage } from "../../../../features/i18n";
 
-type Metric = "turnover" | "count";
 
-type MetricSwitchProps = {
+export type Metric = "turnover" | "quantity";
+
+type Props = {
   value: Metric;
-  onChange: (metric: Metric) => void;
+  onChange: (m: Metric) => void;
 };
 
-export const MetricSwitch = ({ value, onChange }: MetricSwitchProps) => {
+export function MetricSwitch({ value, onChange }: Props) {
+  const { t } = useLanguage();
+
   return (
-    <div className="metric-switch">
+    <div style={{ display: "flex", gap: 8 }}>
       <Button
-        variant={value === "turnover" ? "primary" : "ghost"}
+        variant={value === "turnover" ? "primary" : "outline"}
         onClick={() => onChange("turnover")}
       >
-        Turnover
+        {t("widgets.sales.metric.turnover")}
       </Button>
 
       <Button
-        variant={value === "count" ? "primary" : "ghost"}
-        onClick={() => onChange("count")}
+        variant={value === "quantity" ? "primary" : "outline"}
+        onClick={() => onChange("quantity")}
       >
-        Count
+        {t("widgets.sales.metric.quantity")}
       </Button>
     </div>
   );
-};
+}
