@@ -5,10 +5,11 @@ import { useLanguage } from "@/features/i18n/model/LanguageContext";
 import { RangeSelect, type Range } from "@/shared/ui/molecules/RangeSelect/RangeSelect";
 import { MetricSwitch, type Metric } from "@/shared/ui/molecules/MetricSwitch/MetricSwitch";
 import { salesMock } from "../../../../mock/sales";
+import { useAuth } from "../../../../features/auth";
 
-function sliceByRange(range: Range) {
+function sliceByRange(data: typeof salesMock, range: Range) {
   const n = range === "7d" ? 7 : range === "30d" ? 30 : 90;
-  return salesMock.slice(-n);
+  return data.slice(-n);
 }
 
 function formatDateLabel(iso: string) {
@@ -17,11 +18,20 @@ function formatDateLabel(iso: string) {
 
 export function SalesChartWidget() {
   const { t } = useLanguage();
+  const { user } = useAuth();
 
   const [metric, setMetric] = useState<Metric>("turnover");
   const [range, setRange] = useState<Range>("30d");
 
-  const data = useMemo(() => sliceByRange(range), [range]);
+  const userSales = useMemo(
+    () => salesMock.filter(s => s.userId === user.id),
+    [user.id]
+  );
+  const data = useMemo(
+    () => sliceByRange(userSales, range),
+    [userSales, range]
+  );
+
 
   const headerRight = (
     <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>

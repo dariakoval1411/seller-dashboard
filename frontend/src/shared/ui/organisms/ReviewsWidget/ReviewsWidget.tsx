@@ -2,11 +2,12 @@ import { WidgetCard } from "@/shared/ui/organisms/WidgetCard/WidgetCard";
 import { Text } from "@/shared/ui/atoms/Text";
 import { useLanguage } from "@/features/i18n/model/LanguageContext";
 import { reviewsMock } from "../../../../mock/reviews";
+import { useAuth } from "../../../../features/auth";
 
-function calcAvgRating() {
-  if (reviewsMock.length === 0) return 0;
-  const sum = reviewsMock.reduce((acc, r) => acc + r.rating, 0);
-  return Math.round((sum / reviewsMock.length) * 10) / 10;
+function calcAvgRating(reviews: typeof reviewsMock) {
+  if (reviews.length === 0) return 0;
+  const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
+  return Math.round((sum / reviews.length) * 10) / 10;
 }
 
 function stars(rating: number) {
@@ -17,10 +18,13 @@ function stars(rating: number) {
 
 export function ReviewsWidget() {
   const { t } = useLanguage();
+  const {user} = useAuth();
+  
+  const userReviews = reviewsMock.filter(r => r.userId === user.id);
 
-  const avg = calcAvgRating();
-  const total = reviewsMock.length;
-  const last2 = reviewsMock.slice(0, 2);
+  const avg = calcAvgRating(userReviews);
+  const total = userReviews.length;
+  const last2 = userReviews.slice(0, 2);
 
   return (
     <WidgetCard title={t("widgets.reviews.title")}>

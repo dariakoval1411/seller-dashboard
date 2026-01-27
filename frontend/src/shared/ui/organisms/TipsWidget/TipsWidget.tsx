@@ -2,6 +2,7 @@ import { WidgetCard } from "@/shared/ui/organisms/WidgetCard/WidgetCard";
 import { Text } from "@/shared/ui/atoms/Text";
 import { useLanguage } from "@/features/i18n/model/LanguageContext";
 import { tipsMock } from "../../../../mock/tips";
+import { useAuth } from "../../../../features/auth";
 
 function typeLabelKey(type: string) {
   switch (type) {
@@ -14,7 +15,8 @@ function typeLabelKey(type: string) {
 
 export function TipsWidget() {
   const { t } = useLanguage();
-  const tips = tipsMock.slice(0, 3);
+  const { user } = useAuth();
+  const tips = tipsMock.filter(t => t.userId === user.id);
 
   return (
     <WidgetCard title={t("widgets.tips.title")}>

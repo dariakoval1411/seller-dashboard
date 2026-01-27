@@ -2,6 +2,7 @@ import { WidgetCard } from "@/shared/ui/organisms/WidgetCard/WidgetCard";
 import { Text } from "@/shared/ui/atoms/Text";
 import { useLanguage } from "@/features/i18n/model/LanguageContext";
 import { rankingMock } from "../../../../mock/ranking";
+import { useAuth } from "../../../../features/auth";
 
 function formatMoneyPLN(value: number) {
   return `${value.toFixed(0)} PLN`;
@@ -9,8 +10,10 @@ function formatMoneyPLN(value: number) {
 
 export function RankingWidget() {
   const { t } = useLanguage();
+  const { user } = useAuth();
 
-  const top = rankingMock.slice(0, 5);
+  const userRanking = rankingMock.filter((x) => x.userId === user.id);
+  const top = userRanking.slice(0, 5);
 
   return (
     <WidgetCard title={t("widgets.ranking.title")}>

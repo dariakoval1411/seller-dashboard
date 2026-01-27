@@ -1,6 +1,6 @@
+import { qualityMock } from "@/mock/quality";
+import { useLanguage } from "@/features/i18n/model/LanguageContext";
 import { Text, Badge } from "@/shared/ui/atoms";
-import { useLanguage } from "../../../../features/i18n";
-import { qualityMock } from "../../../../mock/quality";
 
 function toneByPercentGood(onTimeRate: number) {
   if (onTimeRate >= 95) return "success";

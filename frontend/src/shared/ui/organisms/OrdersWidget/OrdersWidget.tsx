@@ -2,6 +2,8 @@ import { WidgetCard } from "@/shared/ui/organisms/WidgetCard/WidgetCard";
 import { Text } from "@/shared/ui/atoms";
 import { useLanguage } from "@/features/i18n/model/LanguageContext";
 import { ordersMock } from "../../../../mock/orders";
+import { useAuth } from "../../../../features/auth";
+import { Badge } from "../../atoms";
 
 function statusLabel(status: string) {
   switch (status) {
@@ -15,8 +17,11 @@ function statusLabel(status: string) {
 
 export function OrdersWidget() {
   const { t } = useLanguage();
+  const { user } = useAuth();
 
-  const totalOrders = ordersMock.length;
+  const userOrders = ordersMock.filter(o => o.userId === user.id);
+
+  const totalOrders = userOrders.length;
   const last3 = ordersMock.slice(0, 3);
 
   return (
@@ -27,7 +32,18 @@ export function OrdersWidget() {
         {last3.map((o) => (
           <div key={o.id} style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
             <Text>{o.id}</Text>
-            <Text style={{ opacity: 0.8 }}>{statusLabel(o.status)}</Text>
+            <Badge
+              label={o.status}
+              tone={
+                o.status === "PAID"
+                  ? "success"
+                  : o.status === "NEW"
+                    ? "warning"
+                    : o.status === "CANCELLED"
+                      ? "danger"
+                      : "neutral"
+              }
+            />
           </div>
         ))}
       </div>
