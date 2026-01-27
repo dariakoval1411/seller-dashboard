@@ -16,13 +16,13 @@ const LS_KEY = "seller-dashboard.language";
 
 const resources: Record<Language, Translations> = { pl, en };
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>("pl");
+function getInitialLanguage(): Language {
+  const saved = localStorage.getItem(LS_KEY);
+  return saved === "pl" || saved === "en" ? saved : "pl";
+}
 
-  useEffect(() => {
-    const saved = localStorage.getItem(LS_KEY) as Language | null;
-    if (saved === "pl" || saved === "en") setLanguage(saved);
-  }, []);
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [language, setLanguage] = useState<Language>(() => getInitialLanguage());
 
   useEffect(() => {
     localStorage.setItem(LS_KEY, language);
@@ -33,9 +33,16 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return (key: string) => dict[key] ?? key;
   }, [language]);
 
-  const value = useMemo(() => ({ language, setLanguage, t }), [language, t]);
+  const value = useMemo(
+    () => ({ language, setLanguage, t }),
+    [language, t]
+  );
 
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
 }
 
 export function useLanguage() {

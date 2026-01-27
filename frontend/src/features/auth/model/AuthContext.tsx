@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { USERS, type User } from "@/mock/users";
-
 type SafeUser = Omit<User, "password">;
 
 type AuthContextValue = {
@@ -10,7 +9,6 @@ type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
-
 const LS_KEY = "seller-dashboard.auth";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

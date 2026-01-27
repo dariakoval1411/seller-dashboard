@@ -78,10 +78,6 @@ export function LoginForm() {
       <Button type="submit" disabled={busy}>
         {busy ? t("loginLoading") : t("loginSubmit")}
       </Button>
-
-      <Text style={{ opacity: 0.7, fontSize: 12 }}>
-        Demo: user1 / 1234, user2 / 1234
-      </Text>
     </form>
   );
 }

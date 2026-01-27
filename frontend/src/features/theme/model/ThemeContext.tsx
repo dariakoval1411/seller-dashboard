@@ -10,13 +10,13 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 const LS_KEY = "seller-dashboard.theme";
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+function getInitialTheme(): Theme {
+  const saved = localStorage.getItem(LS_KEY);
+  return saved === "light" || saved === "dark" ? saved : "dark";
+}
 
-  useEffect(() => {
-    const saved = localStorage.getItem(LS_KEY) as Theme | null;
-    if (saved === "light" || saved === "dark") setTheme(saved);
-  }, []);
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
 
   useEffect(() => {
     localStorage.setItem(LS_KEY, theme);
