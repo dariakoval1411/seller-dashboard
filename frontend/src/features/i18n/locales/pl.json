@@ -1,0 +1,9 @@
+{
+  "loginTitle": "Logowanie",
+  "loginUsername": "Użytkownik",
+  "loginPassword": "Hasło",
+  "loginSubmit": "Zaloguj",
+  "loginLoading": "Logowanie...",
+  "loginErrorRequired": "Wpisz login i hasło.",
+  "loginErrorInvalid": "Nieprawidłowy login lub hasło."
+}

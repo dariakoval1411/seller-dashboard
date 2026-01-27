@@ -190,3 +190,131 @@ a {
 a:hover {
   text-decoration: underline;
 }  
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #f5f5f7;
+}
+
+.login-label {
+  display: block;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  color: #374151;    
+  font-weight: 600;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+.login-title {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #fff;
+  color: #111827;
+  outline: none;
+}
+.login-input:focus {
+  border-color: #2563eb;
+}
+
+.btn-primary { width: 100%; margin-top: 12px; padding: 10px; border-radius: 8px; border: 1px solid #1d4ed8; background: #2563eb; color: white; font-weight: 600; cursor: pointer; }
+.btn-primary:hover { opacity: .95; }
+
+
+
+.header-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.98);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 10px 16px;
+}
+
+.header-logo {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-item {
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.9;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 1;
+}
+
+.nav-item.is-active {
+  background: rgba(255, 255, 255, 0.16);
+  font-weight: 600;
+  opacity: 1;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: #f5f5f7;
+}
+
+.app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px 32px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: inherit;
+  outline: none;
+}
+.input:focus {
+  border-color: rgba(255,255,255,0.35);
+}

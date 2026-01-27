@@ -1,0 +1,9 @@
+{
+  "loginTitle": "Login",
+  "loginUsername": "Username",
+  "loginPassword": "Password",
+  "loginSubmit": "Sign in",
+  "loginLoading": "Signing in...",
+  "loginErrorRequired": "Enter username and password.",
+  "loginErrorInvalid": "Invalid username or password."
+}
